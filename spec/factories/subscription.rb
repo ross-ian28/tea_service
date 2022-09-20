@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :subscription do
-    title { Faker::Science.element }
+    title { Faker::Subscription.plan }
     price { Faker::Number.within(range: 10..15) }
     status { "Active" }
-    frequency { "Once a month" }
+    frequency { Faker::Subscription.payment_term }
   end
 end
