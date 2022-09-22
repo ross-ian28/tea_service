@@ -13,6 +13,11 @@ class Api::V1::SubscriptionController < ApplicationController
     end
   end
 
+  def index
+    customer = Customer.find(params[:customer_id])
+    render json: SubscriptionSerializer.all_subscriptions(customer.subscription)
+  end
+
   private
 
   def sub_params
