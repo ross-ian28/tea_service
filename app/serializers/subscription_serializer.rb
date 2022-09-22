@@ -15,4 +15,23 @@ class SubscriptionSerializer
       }
     }
   end
+
+  def self.all_subscriptions(data)
+    {
+      data: data.each do |sub|
+        {
+          id: sub.id,
+          type: "subscription",
+          attributes: {
+            title: sub.title,
+            price: sub.price,
+            status: sub.status,
+            frequency: sub.frequency,
+            customer_id: sub.customer_id,
+            tea_id: sub.tea_id
+          }
+        }
+      end
+    }
+  end
 end
