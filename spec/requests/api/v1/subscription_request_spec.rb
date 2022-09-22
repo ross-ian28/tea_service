@@ -55,6 +55,33 @@ RSpec.describe 'The subscription API endpoints' do
     expect(sub[:attributes][:status]).to eq("Canceled")
   end
 
+  it 'lists every current and past subscription' do
+    customer = create(:customer)
+    tea1 = create(:tea)
+    tea2 = create(:tea)
+    tea3 = create(:tea)
+    create(:subscription, customer_id: customer.id, tea_id: tea1.id)
+    create(:subscription, customer_id: customer.id, tea_id: tea2.id)
+    create(:subscription, customer_id: customer.id, tea_id: tea3.id)
+
+    get "/api/v1/subscriptions", params: { customer_id: customer.id}
+
+    subs = JSON.parse(response.body, symbolize_names: true)[:data]
+
+    expect(response).to be_successful
+
+    expect(subs.count).to eq(3)
+
+    subs.each do |sub|
+      expect(sub[:id]).to be_an(Integer)
+      expect(sub[:title]).to be_a(String)
+      expect(sub[:price]).to be_an(Integer)
+      expect(sub[:status]).to be_a(String)
+      expect(sub[:frequency]).to be_a(String)
+      expect(sub[:customer_id]).to eq(customer.id)
+    end
+  end
+
   describe "sad path" do
     it "can't update status" do
       customer = create(:customer)
