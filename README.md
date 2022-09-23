@@ -1,24 +1,124 @@
-# README
+# ReadMe
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Learning Goals
+- A strong understanding of Rails
+- Ability to create restful routes
+- Demonstration of well-organized code, following OOP
+- Test Driven Development
+- Clear documentation
 
-Things you may want to cover:
+## Set Up
+- `$ git clone git@github.com:ross-ian28/tea_service.git`
+- `$ cd tea_service`
+- `$ rails db:{:create,:migrate}`
+- `$ bundle install`
+- `$ rails s`
 
-* Ruby version
+## Database Creation
+- `rails db:{create,migrate}`
 
-* System dependencies
+## End Points
 
-* Configuration
+### Subscribe Customer to Tea
+```
+get /api/v1/subscribe
+```
 
-* Database creation
+```
+body:
+  {
+    title: "Silver",
+    price: 2.00,
+    status: "Active",
+    frequency: "Monthly",
+    customer_id: 1,
+    tea_id: 1
+  }
+```
+```
+{
+  "data": {
+    "id": 4,
+    "type": "subscription",
+    "attributes": {
+      "title": "Gold",
+      "price": 2,
+      "status": "Active",
+      "frequency": "Monthly",
+      "customer_id": 1,
+      "tea_id": 1
+    }
+  }
+}
+```
+### Cancels a Subscription
+```
+patch /api/v1/subscribe/cancel
+```
+```
+body:
+  {
+    "sub_id": 1,
+    "status": "Canceled"
+  }
+```
 
-* Database initialization
+```
+{
+  "data": {
+    "id": 1,
+    "type": "subscription",
+    "attributes": {
+      "title": "Silver",
+      "price": 2,
+      "status": "Canceled",
+      "frequency": "Monthly",
+      "customer_id": 1,
+      "tea_id": 1
+    }
+  }
+}
+```
 
-* How to run the test suite
+### List All Customers Subscriptions
+```
+get /api/v1/customer/subscriptions
+```
+```
+body:
+  { "customer_id": 1 }
+```
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "Silver",
+            "price": 2,
+            "status": "Active",
+            "frequency": "Monthly",
+            "customer_id": 1,
+            "tea_id": 1
+        },
+        {
+            "id": 2,
+            "title": "Platinum",
+            "price": 5,
+            "status": "Canceled",
+            "frequency": "Monthly",
+            "customer_id": 1,
+            "tea_id": 2
+        },
+        {
+            "id": 3,
+            "title": "Gold",
+            "price": 2,
+            "status": "Active",
+            "frequency": "Monthly",
+            "customer_id": 1,
+            "tea_id": 1
+        }
+    ]
+}
+```
