@@ -13,7 +13,7 @@ RSpec.describe 'The subscription API endpoints' do
       tea_id: tea.id
     }
 
-    get "/api/v1/subscribe", params: params
+    post "/api/v1/subscribe", params: params
 
     sub = JSON.parse(response.body, symbolize_names: true)[:data]
     new_sub = Subscription.last
