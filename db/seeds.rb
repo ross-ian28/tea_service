@@ -6,4 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 customer = Customer.create(first_name: "Pabu", last_name: "Ross", email: "ferret@email.com", address: "123 Ferret Street")
-tea = Tea.create(title: "Silver", description: "My favorite", temperature: 240, brew_time: 20)
+tea1 = Tea.create(title: "Green", description: "My favorite", temperature: 240, brew_time: 20)
+tea2 = Tea.create(title: "Herbal", description: "Good stuff", temperature: 245, brew_time: 30)
+sub1 = Subscription.create(title: "Silver", price: 2.00, status: "Active", frequency: "Monthly", customer_id: customer.id, tea_id: tea1.id)
+sub1 = Subscription.create(title: "Platinum", price: 5.00, status: "Canceled", frequency: "Monthly", customer_id: customer.id, tea_id: tea2.id)

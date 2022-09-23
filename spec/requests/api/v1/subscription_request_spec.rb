@@ -64,7 +64,7 @@ RSpec.describe 'The subscription API endpoints' do
     create(:subscription, customer_id: customer.id, tea_id: tea2.id)
     create(:subscription, customer_id: customer.id, tea_id: tea3.id)
 
-    get "/api/v1/subscriptions", params: { customer_id: customer.id}
+    get "/api/v1/customer/subscriptions", params: { customer_id: customer.id}
 
     subs = JSON.parse(response.body, symbolize_names: true)[:data]
 
